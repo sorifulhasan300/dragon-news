@@ -1,12 +1,13 @@
 import "./App.css";
 import Header from "./components/Header";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate, useNavigation } from "react-router";
 import Marquee from "react-fast-marquee";
 import Navbar from "./components/Navbar";
 import LeftAside from "./components/HomeLayout/LeftAside";
 import RightAside from "./components/HomeLayout/RightAside";
 
 function App() {
+  const { state } = useNavigation();
   return (
     <>
       <header className="w-11/12 mx-auto">
@@ -38,13 +39,13 @@ function App() {
         </nav>
       </header>
       <main className="w-11/12 mx-auto my-3  grid grid-cols-12 gap-8">
-        <aside className="col-span-3">
+        <aside className="col-span-3 sticky h-fit top-10">
           <LeftAside></LeftAside>
         </aside>
         <section className="col-span-6">
-          <Outlet></Outlet>
+          {state == "loading" ? <h1>Loading...</h1> : <Outlet></Outlet>}
         </section>
-        <aside className="col-span-3">
+        <aside className="col-span-3 h-fit sticky top-2">
           <RightAside></RightAside>
         </aside>
       </main>
